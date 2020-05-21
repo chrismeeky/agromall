@@ -1,5 +1,5 @@
 import { User } from "../models";
-import { Authentication,HelperMethods, CryptData } from "../utils";
+import { Authentication, HelperMethods, CryptData } from "../utils";
 
 /**
  * Class representing the user controller
