@@ -126,21 +126,21 @@ class UserController {
     try {
       const userExist = await User.findOne({ _id: req.decoded.id });
       if (userExist) {
-        if (!userExist.isVerified) {
-          return HelperMethods.clientError(
-            res,
-            "You cannot perform this action. You are not a verified user.",
-            400
-          );
-        }
         await User.updateOne({ _id: req.decoded.id }, { $set: req.body });
         const user = await User.findById(req.decoded.id);
-        console.info(user);
+        const { email, name, id, date, role } = user;
         return HelperMethods.requestSuccessful(
           res,
           {
             success: true,
             message: "profile updated successfully",
+            userData: {
+              email,
+              name,
+              id,
+              date,
+              role,
+            },
           },
           200
         );

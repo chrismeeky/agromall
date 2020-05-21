@@ -22,7 +22,12 @@ const marketSchema = Schema({
     max: 5,
     required: true,
   },
-
+  imageURL: {
+    type: Array,
+    max: 5,
+    min: 3,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,

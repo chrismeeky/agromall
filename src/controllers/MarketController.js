@@ -20,7 +20,7 @@ class marketController {
   static async addMarket(req, res) {
     try {
       const newMarket = new Market(req.body);
-      const savedNewMarket = newMarket.save();
+      const savedNewMarket = await newMarket.save();
       if (savedNewMarket) {
         return HelperMethods.requestSuccessful(res, {
           success: true,
@@ -51,15 +51,22 @@ class marketController {
       const marketExists = await Market.findOne({ _id: id });
 
       if (marketExists) {
-        await Market.updateOne({ _id: id }, { $set: req.body });
-        return HelperMethods.requestSuccessful(
-          res,
-          {
-            success: true,
-            message: "Market information updated successfully",
-          },
-          200
+        const updatedMarket = await Market.updateOne(
+          { _id: id },
+          { $set: req.body }
         );
+        if (updatedMarket) {
+          const updated = await Market.findOne({ _id: id });
+          return HelperMethods.requestSuccessful(
+            res,
+            {
+              success: true,
+              message: "Market information updated successfully",
+              market: updated,
+            },
+            200
+          );
+        }
       }
       return HelperMethods.clientError(res, "Market not found", 404);
     } catch (error) {
@@ -104,7 +111,7 @@ class marketController {
     try {
       const market = await Market.find({})
         .skip(5 * parseInt(req.body.page))
-        .limit(10);
+        .limit(2);
       if (market) {
         return HelperMethods.requestSuccessful(res, {
           success: true,

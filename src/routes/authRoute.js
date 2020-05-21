@@ -1,5 +1,4 @@
 import { UserController } from "../controllers";
-import { Authorization } from "../middlewares";
 import Validate from "../validation";
 
 const authRoutes = (app) => {
