@@ -198,7 +198,7 @@ class marketController {
         200
       );
     } catch (error) {
-      return HelperMethods.serverError(res);
+      return HelperMethods.serverError(res, error.message);
     }
   }
 }
