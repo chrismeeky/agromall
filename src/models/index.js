@@ -1,8 +1,4 @@
-import User from './User';
-import Message from './Message';
-import Request from './Request';
-import Car from './Car';
+import User from "./User";
+import Market from "./Market";
 
-export {
-  User, Message, Request, Car
-};
+export { User, Market };

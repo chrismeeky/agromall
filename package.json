@@ -1,7 +1,7 @@
 {
-  "name": "amona",
+  "name": "agromall",
   "version": "1.0.0",
-  "description": "An app that links drivers and car owners",
+  "description": "An app that shows visitors nearby markets",
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
