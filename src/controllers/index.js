@@ -1,6 +1,4 @@
-import UserController from './UserController';
+import UserController from "./UserController";
+import MarketController from "./MarketController";
 
-export {
-  UserController
-};
-
+export { UserController, MarketController };
