@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=node
 
 ### Node ###
-# Logs
+# Logs.
 logs
 *.log
 npm-debug.log*
