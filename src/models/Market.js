@@ -12,20 +12,47 @@ const marketSchema = Schema({
     max: 500,
     required: true,
   },
-  location: {
+  locationID: {
     type: String,
-    max: 100,
     required: true,
+  },
+  addressComponents: {
+    type: Array,
+    required: true,
+  },
+  formattedAddress: {
+    type: String,
+    required: true,
+  },
+  mapPosition: {
+    type: Object,
+    required: true,
+  },
+  views: {
+    type: Number,
   },
   categories: {
     type: Array,
     max: 5,
     required: true,
   },
-  imageURL: {
+  imageURLs: {
     type: Array,
     max: 5,
     min: 3,
+    required: true,
+  },
+
+  city: {
+    type: Array,
+    required: true,
+  },
+  state: {
+    type: Array,
+    required: true,
+  },
+  area: {
+    type: Array,
     required: true,
   },
   date: {

@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { Market, User } from "../models";
+import { Market, Categories } from "../models";
 import { cloudinary } from "../config";
 import { HelperMethods } from "../utils";
 
@@ -22,6 +22,22 @@ class marketController {
       const newMarket = new Market(req.body);
       const savedNewMarket = await newMarket.save();
       if (savedNewMarket) {
+        const allCategories = await Categories.find();
+        if (!allCategories.length) {
+          const { categories } = req.body;
+          const newCategories = new Categories({ categories });
+          await newCategories.save();
+        } else {
+          const { categories, _id } = allCategories[0];
+          const mergedCategories = Array.from(
+            new Set(categories.concat(req.body.categories))
+          );
+         await Categories.updateOne({
+            _id,
+            $set: { categories: mergedCategories },
+          });
+        }
+
         return HelperMethods.requestSuccessful(res, {
           success: true,
           message: "Your market has been successfully added",
@@ -158,7 +174,7 @@ class marketController {
    * @memberof marketController
    */
   static async removeMarket(req, res) {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
       const marketExist = await Market.findOne({ _id: id });
       if (marketExist) {
@@ -187,6 +203,7 @@ class marketController {
    */
   static async uploadOne(req, res) {
     try {
+      console.log(req.files);
       const result = await cloudinary.v2.uploader.upload(req.files.image.path);
       return HelperMethods.requestSuccessful(
         res,

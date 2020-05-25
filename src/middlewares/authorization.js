@@ -19,7 +19,10 @@ class Authorization {
    */
   static async checkToken(req, res, next) {
     const token =
-      req.headers["x-access-token"] || req.query.token || req.body.token;
+      req.headers["x-access-token"] ||
+      req.query.token ||
+      req.params.token ||
+      req.body.token;
     if (!token)
       return HelperMethods.clientError(res, "User not authorized", 401);
     const verifiedToken = await Authentication.verifyToken(token);

@@ -25,7 +25,7 @@ const MarketRoute = (app) => {
   app.get("/api/v1/markets/range", MarketController.findAllMarketInRange);
 
   app.delete(
-    "/api/v1/market",
+    "/api/v1/market/:id/:token",
     Authorization.checkToken,
     Authorization.confirmRole,
     MarketController.removeMarket
