@@ -16,11 +16,19 @@ Our vision is to be the household name for learning about markets around people
 
 ### REST API Docs
 
-The Api documentation is done using Postman. View [Agromall API Documentation](https://documenter.getpostman.com/view/9168340/Szt7AqcZ?version=latest#e8985772-9faf-4e2f-bc63-967ad29b222f)
+The Api documentation is done using Postman. View [Agromall API Documentation](https://documenter.getpostman.com/view/9168340/Szt7AqcZ)
 
-### Heroku Link
+### Mockup design
 
-The app is hosted on Heroku.com. Open [Agromall APP](https://agromall.herokuapp.com) to make your requests
+The mock-up design of the front end is done using figma. View the mock-up design [Agromall mockup](https://documenter.getpostman.com/view/9168340/Szt7AqcZ)
+
+### Backend Link
+
+The the backend of the app is hosted on Heroku.com. Open [Agromall APP](http://agromall-back.herokuapp.com) to make your requests
+
+### Frontend Link
+
+The frontend of the application is live and hosted on firebase. Open [Agromall APP](https://agromall-1eaba.firebaseapp.com/) to open the application
 
 ### JWT Authentication
 
@@ -36,6 +44,7 @@ Create a market
 View a particular market
 View all markets
 View markets between a range (pagination)
+Filter markets
 Update a market
 Delete a market
 ```
