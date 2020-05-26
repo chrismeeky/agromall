@@ -2,7 +2,41 @@
 import { Market, Categories } from "../models";
 import { cloudinary } from "../config";
 import { HelperMethods } from "../utils";
+/**
+ *
+ * @description method that updates categories's information
+ * @static
+ * @param {object} req HTTP Request object
+ * @param {object} res HTTP Response object
+ * @returns {object} HTTP Response object
+ * @memberof marketController
+ */
 
+const updateCategories = async (req, res) => {
+  try {
+    const allCategories = await Categories.find();
+    if (!allCategories.length) {
+      const { categories } = req.body;
+      const newCategories = new Categories({ categories });
+      await newCategories.save();
+    } else {
+      const { categories, _id } = allCategories[0];
+      const mergedCategories = Array.from(
+        new Set(categories.concat(req.body.categories))
+      );
+      await Categories.updateOne({
+        _id,
+        $set: { categories: mergedCategories },
+      });
+    }
+    return {
+      success: true,
+      message: "Categories information updated successfully",
+    };
+  } catch (error) {
+    return HelperMethods.serverError(res, error.message);
+  }
+};
 /**
  * Class representing the Upload controller
  * @class UploadController
@@ -22,21 +56,7 @@ class marketController {
       const newMarket = new Market(req.body);
       const savedNewMarket = await newMarket.save();
       if (savedNewMarket) {
-        const allCategories = await Categories.find();
-        if (!allCategories.length) {
-          const { categories } = req.body;
-          const newCategories = new Categories({ categories });
-          await newCategories.save();
-        } else {
-          const { categories, _id } = allCategories[0];
-          const mergedCategories = Array.from(
-            new Set(categories.concat(req.body.categories))
-          );
-         await Categories.updateOne({
-            _id,
-            $set: { categories: mergedCategories },
-          });
-        }
+        await updateCategories(req, res);
 
         return HelperMethods.requestSuccessful(res, {
           success: true,
@@ -73,6 +93,7 @@ class marketController {
         );
         if (updatedMarket) {
           const updated = await Market.findOne({ _id: id });
+          await updateCategories(req, res);
           return HelperMethods.requestSuccessful(
             res,
             {
@@ -89,6 +110,7 @@ class marketController {
       return HelperMethods.serverError(res, error.message);
     }
   }
+
   /**
    *
    * @description method that gets a specific market
@@ -99,7 +121,7 @@ class marketController {
    * @memberof marketController
    */
   static async findAMarket(req, res) {
-    const { id } = req.body;
+    const { id } = req.params || req.body;
     try {
       const market = await Market.findOne({ _id: id });
       if (market) {

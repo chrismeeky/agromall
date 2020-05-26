@@ -20,7 +20,7 @@ const MarketRoute = (app) => {
     Authorization.confirmRole,
     MarketController.updateMarket
   );
-  app.get("/api/v1/market", MarketController.findAMarket);
+  app.get("/api/v1/market/:id", MarketController.findAMarket);
   app.get("/api/v1/markets", MarketController.findAllMarket);
   app.get("/api/v1/markets/range", MarketController.findAllMarketInRange);
 
